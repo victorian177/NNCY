@@ -1,29 +1,43 @@
 # Use postgres/example user/password credentials
-version: '3.1'
+version: '3'
 
 services:
   auth: 
-    build:
+    build: ./backend/auth
+
     depends_on:
       - db
-    env_file: .env
+
+    env_file: 
+      - ./backend/auth/.env
+
     networks:
       - default
+
     ports:
       - 5000:5000
+
     volumes:
-      - ./app:containerPath:ro
+      - ./backend/auth:/app
+
     restart: always
 
   db:
     image: postgres:14-alpine
+
     restart: always
 
-    env_file: auth/.env
+    networks:
+      - default
+
+    env_file: 
+      - backend\auth\.env
 
     environment:
-      - POSTGRES_USER: ${POSTGRES_USER}
-      - POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      - POSTGRES_USERNAME:"nancyadmin"
+      - POSTGRES_PASSWORD:"nncyadmn"
+      - POSTGRES_DB:"user_data"
+
     ports:
       - '5432:5432'
 
@@ -32,7 +46,7 @@ services:
 
     
 volumes:
-  db: 
+  db-data: 
 
 
   

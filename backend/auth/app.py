@@ -16,8 +16,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql+psycopg2://{PSTGRS_USERNAME}:{PSTGRS_PASSWORD}@localhost:5432/{PSTGRS_DATABASE}"
 
 
-db = SQLAlchemy(app)
-
+db = SQLAlchemy(app)    
 class User(db.Model):
     __tablename__ = 'user_data'
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
@@ -35,7 +34,8 @@ class User(db.Model):
 
     def __repr__(self):
         return f"{self.first_name} {self.last_name}: {self.email}"
-        
+
+
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
